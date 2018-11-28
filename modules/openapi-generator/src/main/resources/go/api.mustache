@@ -280,6 +280,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 		{{#responses}}
 		{{#dataType}}
 		if localVarHttpResponse.StatusCode == {{{code}}} {
+		    {{^primitiveType}}
 			var v {{{dataType}}}
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -287,6 +288,11 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 				return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHttpResponse, newErr
 			}
 			newErr.model = v
+			{{/primitiveType}}
+			{{#primitiveType}}
+			// error response body is primitive type (e.g. string)
+			localVarReturnValue = localVarBody
+			{{/primitiveType}}
 			return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHttpResponse, newErr
 		}
 		{{/dataType}}
@@ -295,6 +301,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 	}
 
 	{{#returnType}}
+	{{^returnTypeIsPrimitive}}
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
@@ -304,6 +311,12 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 		return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHttpResponse, newErr
 	}
 
+	{{/returnTypeIsPrimitive}}
+	{{#returnTypeIsPrimitive}}
+	// http response body is primitive type (e.g. string, boolean)
+	localVarReturnValue = localVarBody
+
+	{{/returnTypeIsPrimitive}}
 	{{/returnType}}
 	return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHttpResponse, nil
 }

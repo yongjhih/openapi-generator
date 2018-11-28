@@ -100,26 +100,15 @@ func (a *FakeApiService) FakeOuterBooleanSerialize(ctx context.Context, localVar
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v bool
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
+			// error response body is primitive type (e.g. string)
+			localVarReturnValue = localVarBody
 			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHttpResponse, newErr
-	}
+	// http response body is primitive type (e.g. string, boolean)
+	localVarReturnValue = localVarBody
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
@@ -300,26 +289,15 @@ func (a *FakeApiService) FakeOuterNumberSerialize(ctx context.Context, localVarO
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v float32
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
+			// error response body is primitive type (e.g. string)
+			localVarReturnValue = localVarBody
 			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHttpResponse, newErr
-	}
+	// http response body is primitive type (e.g. string, boolean)
+	localVarReturnValue = localVarBody
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
@@ -398,26 +376,15 @@ func (a *FakeApiService) FakeOuterStringSerialize(ctx context.Context, localVarO
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v string
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
+			// error response body is primitive type (e.g. string)
+			localVarReturnValue = localVarBody
 			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHttpResponse, newErr
-	}
+	// http response body is primitive type (e.g. string, boolean)
+	localVarReturnValue = localVarBody
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }

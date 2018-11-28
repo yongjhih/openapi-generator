@@ -179,14 +179,8 @@ func (a *StoreApiService) GetInventory(ctx context.Context) (map[string]int32, *
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHttpResponse, newErr
-	}
+	// http response body is primitive type (e.g. string, boolean)
+	localVarReturnValue = localVarBody
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }

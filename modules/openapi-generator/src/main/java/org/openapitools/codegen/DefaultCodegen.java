@@ -2598,7 +2598,7 @@ public class DefaultCodegen implements CodegenConfig {
             r.code = "0";
         } else {
             r.code = responseCode;
-        	r.isSuccessCode = r.code.startsWith("2");
+            r.isSuccessCode = r.code.startsWith("2");
         }
         Schema responseSchema;
         if (openAPI != null && openAPI.getComponents() != null) {
@@ -3081,7 +3081,7 @@ public class DefaultCodegen implements CodegenConfig {
             return false;
         }
     }
-
+    
     // TODO revise below as it should be replaced by ModelUtils.isFileSchema(parameterSchema)
     public boolean isDataTypeFile(String dataType) {
         if (dataType != null) {

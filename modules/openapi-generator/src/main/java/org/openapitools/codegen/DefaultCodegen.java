@@ -2598,6 +2598,7 @@ public class DefaultCodegen implements CodegenConfig {
             r.code = "0";
         } else {
             r.code = responseCode;
+        	r.isSuccessCode = r.code.startsWith("2");
         }
         Schema responseSchema;
         if (openAPI != null && openAPI.getComponents() != null) {

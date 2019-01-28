@@ -8,33 +8,33 @@ class User:
     """
     
     """
-    id: Optional[long]
+    id: Optional[int]
     """
     
     """
-    username: Optional[string]
+    username: Optional[str]
     """
     
     """
-    firstName: Optional[string]
+    first_name: Optional[str]
     """
     
     """
-    lastName: Optional[string]
+    last_name: Optional[str]
     """
     
     """
-    email: Optional[string]
+    email: Optional[str]
     """
     
     """
-    password: Optional[string]
+    password: Optional[str]
     """
     
     """
-    phone: Optional[string]
+    phone: Optional[str]
     """
     User Status
     """
-    userStatus: Optional[integer]
+    user_status: Optional[int]
 

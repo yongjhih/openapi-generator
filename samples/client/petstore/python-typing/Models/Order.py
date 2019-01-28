@@ -8,25 +8,25 @@ class Order:
     """
     
     """
-    id: Optional[long]
+    id: Optional[int]
     """
     
     """
-    petId: Optional[long]
+    pet_id: Optional[int]
     """
     
     """
-    quantity: Optional[integer]
+    quantity: Optional[int]
     """
     
     """
-    shipDate: Optional[DateTime]
+    ship_date: Optional[datetime]
     """
     Order Status
     """
-    status: Optional[string]
+    status: Optional[str]
     """
     
     """
-    complete: Optional[boolean]
+    complete: Optional[bool]
 

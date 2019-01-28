@@ -1,4 +1,6 @@
+# coding: utf-8
 # -*- coding: future_fstrings -*-
+#
 
 import asyncio
 import ssl
@@ -24,12 +26,19 @@ class {{classname}}(Rests):
     """
     {{/description}}
 
-    async def {{operationId}}(self{{#allParams}}, {{paramName}}{{#isPrimitiveType}}: {{^required}}Optional[{{/required}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^required}}]{{/required}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}} {{/allParams}}){{#returnType}} -> {{returnType}}{{/returnType}}:
-    """
-    {{#summary}}
-    {{summary}}
-    {{/summary}}
-    method: {{httpMethod}}
-    path: {{path}}
-    """
+    async def {{operationId}}(self{{#allParams}}, {{paramName}}{{#dataType}}: {{^required}}Optional[{{/required}}{{dataType}}{{/dataType}}{{^required}}]{{/required}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}}{{/allParams}}) -> {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}:
+        """
+        {{#summary}}
+        {{summary}}
+        {{/summary}}
+
+        method: {{httpMethod}}
+        path: {{path}}
+
+{{#allParams}}
+        :param {{dataType}} {{paramName}}:{{#description}} {{{description}}}{{/description}}{{#required}} (required){{/required}}{{#optional}}(optional){{/optional}}
+{{/allParams}}
+
+        :return: {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}
+        """
 {{/operation}}{{/operations}}

@@ -8,7 +8,7 @@ class Pet:
     """
     
     """
-    id: Optional[long]
+    id: Optional[int]
     """
     
     """
@@ -16,11 +16,11 @@ class Pet:
     """
     
     """
-    name: string
+    name: str
     """
     
     """
-    photoUrls: string
+    photo_urls: List[str]
     """
     
     """
@@ -28,5 +28,5 @@ class Pet:
     """
     pet status in the store
     """
-    status: Optional[string]
+    status: Optional[str]
 

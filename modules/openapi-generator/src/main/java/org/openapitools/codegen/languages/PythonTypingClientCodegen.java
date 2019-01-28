@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PythonTypingClientCodegen extends DefaultCodegen implements CodegenConfig {
+public class PythonTypingClientCodegen extends PythonClientCodegen implements CodegenConfig {
     public static final String PROJECT_NAME = "pythonTypingClient";
 
     static Logger LOGGER = LoggerFactory.getLogger(PythonTypingClientCodegen.class);
@@ -34,13 +34,25 @@ public class PythonTypingClientCodegen extends DefaultCodegen implements Codegen
     public PythonTypingClientCodegen() {
         super();
 
+        modelTestTemplateFiles.clear(); // not support yet
+        apiTestTemplateFiles.clear(); // not support yet
+        modelDocTemplateFiles.clear(); // not support yet
+        apiDocTemplateFiles.clear(); // not support yet
+        supportingFiles.clear(); // not support yet
+
         outputFolder = "generated-code" + File.separator + "python-typing";
         modelTemplateFiles.put("model.mustache", ".py");
         apiTemplateFiles.put("api.mustache", ".py");
         embeddedTemplateDir = templateDir = "python-typing-client";
-        apiPackage = File.separator + "Apis";
-        modelPackage = File.separator + "Models";
         supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
-        // TODO: Fill this out.
+
+        languageSpecificPrimitives.add("List");
+        languageSpecificPrimitives.add("Dict");
+        typeMapping.put("array", "List");
+        typeMapping.put("map", "Dict");
+    }
+
+    @Override
+    public void processOpts() {
     }
 }

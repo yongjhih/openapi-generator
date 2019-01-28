@@ -8,13 +8,13 @@ class ApiResponse:
     """
     
     """
-    code: Optional[integer]
+    code: Optional[int]
     """
     
     """
-    type: Optional[string]
+    type: Optional[str]
     """
     
     """
-    message: Optional[string]
+    message: Optional[str]
 

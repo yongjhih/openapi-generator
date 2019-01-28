@@ -8,9 +8,9 @@ class Tag:
     """
     
     """
-    id: Optional[long]
+    id: Optional[int]
     """
     
     """
-    name: Optional[string]
+    name: Optional[str]
 

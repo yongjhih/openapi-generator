@@ -1,0 +1,28 @@
+{{#models}}
+{{#model}}
+# -*- coding: future_fstrings -*-
+
+from typing import Any, Dict, List, Optional, NewType, TypeVar
+from dataclasses import dataclass
+
+@dataclass
+class {{{classname}}}:
+    {{#parent}}
+    {{#parentVars}}
+    {{#description}}
+    """
+    {{description}}
+    """
+    {{/description}}
+    {{name}}: {{^required}}Optional[{{/required}}{{#isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{complexType}}{{/isPrimitiveType}}{{^required}}]{{/required}}
+    {{/parentVars}}
+    {{/parent}}
+    {{#vars}}
+    """
+    {{description}}
+    """
+    {{name}}: {{^required}}Optional[{{/required}}{{#isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{complexType}}{{/isPrimitiveType}}{{^required}}]{{/required}}
+    {{/vars}}
+
+{{/model}}
+{{/models}}

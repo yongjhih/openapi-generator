@@ -57,32 +57,100 @@ class Rests():
         return await self.session.head(url=self.url(url), data=data)
 
 
-class {{classname}}(Rests):
-    {{#description}}
-    """
-    {{description}}
-    """
-    {{/description}}
+class DefaultApi(Rests):
 
-    def __init__(self, base_url: str = '{{basePath}}', session: aiohttp.ClientSession = aiohttp.ClientSession()):
+    def __init__(self, base_url: str = 'https://docker.mender.io/api/management/v1/useradm', session: aiohttp.ClientSession = aiohttp.ClientSession()):
         super().__init__(base_url, session)
 
-{{#operations}}{{#operation}}
-{{#vendorExtensions}}
-    async def {{operationId}}(self{{#pathParams}}, {{paramName}}{{#dataType}}: {{^required}}Optional[{{/required}}{{dataType}}{{/dataType}}{{^required}}]{{/required}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}}{{^defaultValue}}{{^required}}] = None{{/required}}{{/defaultValue}}{{/pathParams}}) -> {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}:
+
+    async def auth_login_post(self) -> None:
         """
-        {{#summary}}
-        {{summary}}
-        {{/summary}}
+        Log in to Mender
 
-        {{httpMethod}} {{path}}
+        POST /auth/login
 
-{{#pathParams}}
-        :param {{dataType}} {{paramName}}:{{#description}} {{{description}}}{{/description}}{{#required}} (required){{/required}}{{#optional}}(optional){{/optional}}
-{{/pathParams}}
 
-        :return: {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}
+        :return: None
         """
-        return await self.{{lower_http_method}}(f"{{path}}"{{#hasPathParams}}, { {{/hasPathParams}}{{#pathParams}} "{{paramName}}": {{paramName}}, {{/pathParams}}{{#hasPathParams}} } {{/hasPathParams}})
-{{/vendorExtensions}}
-{{/operation}}{{/operations}}
+        return await self.post(f"/auth/login")
+
+    async def settings_get(self) -> object:
+        """
+        Get user settings
+
+        GET /settings
+
+
+        :return: object
+        """
+        return await self.get(f"/settings")
+
+    async def settings_post(self) -> None:
+        """
+        Set user settings
+
+        POST /settings
+
+
+        :return: None
+        """
+        return await self.post(f"/settings")
+
+    async def users_get(self) -> List[User]:
+        """
+        List users
+
+        GET /users
+
+
+        :return: List[User]
+        """
+        return await self.get(f"/users")
+
+    async def users_id_delete(self, id: str) -> None:
+        """
+        Remove user from the system
+
+        DELETE /users/{id}
+
+        :param str id: User id. (required)
+
+        :return: None
+        """
+        return await self.delete(f"/users/{id}", {  "id": id,  } )
+
+    async def users_id_get(self, id: str) -> User:
+        """
+        Get user information
+
+        GET /users/{id}
+
+        :param str id: User id. (required)
+
+        :return: User
+        """
+        return await self.get(f"/users/{id}", {  "id": id,  } )
+
+    async def users_id_put(self, id: str) -> None:
+        """
+        Update user information
+
+        PUT /users/{id}
+
+        :param str id: User id. (required)
+
+        :return: None
+        """
+        return await self.put(f"/users/{id}", {  "id": id,  } )
+
+    async def users_post(self) -> None:
+        """
+        Create user
+
+        POST /users
+
+
+        :return: None
+        """
+        return await self.post(f"/users")
+

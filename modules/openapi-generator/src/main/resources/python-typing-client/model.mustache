@@ -14,14 +14,14 @@ class {{{classname}}}:
     {{description}}
     """
     {{/description}}
-    {{name}}: {{^required}}Optional[{{/required}}{{#isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{complexType}}{{/isPrimitiveType}}{{^required}}]{{/required}}
+    {{name}}: {{^required}}Optional[{{/required}}{{#isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{complexType}}{{/isPrimitiveType}}{{^required}}]{{/required}}{{^required}} = None{{/required}}
     {{/parentVars}}
     {{/parent}}
     {{#vars}}
     """
     {{description}}
     """
-    {{name}}: {{^required}}Optional[{{/required}}{{#isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{complexType}}{{/isPrimitiveType}}{{^required}}]{{/required}}
+    {{name}}: {{^required}}Optional[{{/required}}{{#isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{complexType}}{{/isPrimitiveType}}{{^required}}]{{/required}}{{^required}} = None{{/required}}
     {{/vars}}
 
 {{/model}}

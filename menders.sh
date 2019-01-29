@@ -36,6 +36,6 @@ fi
 export JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=256M -Xmx1024M -DloggerPath=conf/log4j.properties"
 
 for mender in "${!menders[@]}"; do
-    ags="$@ generate -i ${menders[$mender]} -g python-typing -o samples/client/${mender}/python-typing"
+    ags="$@ generate -i ${menders[$mender]} -g python-typing -o samples/client/python-typing/mender/${mender}"
     java ${JAVA_OPTS} -jar ${executable} ${ags}
 done

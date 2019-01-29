@@ -576,6 +576,8 @@ public class PythonClientCodegen extends DefaultCodegen implements CodegenConfig
             operationId = "call_" + operationId;
         }
 
+        LOGGER.warn(operationId + ":  underscore(sanitizeName()) to " + underscore(sanitizeName(operationId)));
+
         return underscore(sanitizeName(operationId));
     }
 

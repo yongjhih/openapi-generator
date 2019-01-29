@@ -1,5 +1,10 @@
 package org.openapitools.codegen.languages;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.Operation;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.Operation;
+import io.swagger.v3.oas.models.media.Schema;
 import org.openapitools.codegen.*;
 import io.swagger.models.properties.ArrayProperty;
 import io.swagger.models.properties.MapProperty;
@@ -55,4 +60,22 @@ public class PythonTypingClientCodegen extends PythonClientCodegen implements Co
     @Override
     public void processOpts() {
     }
+
+    @Override
+    public CodegenOperation fromOperation(String path,
+                                          String httpMethod,
+                                          Operation operation,
+                                          Map<String, Schema> definitions,
+                                          OpenAPI openAPI) {
+        final CodegenOperation op = super.fromOperation(path, httpMethod, operation, definitions, openAPI);
+        op.vendorExtensions.put("lower_http_method", httpMethod.toLowerCase(Locale.ROOT));
+        op.vendorExtensions.put("hasPathParams", !op.pathParams.isEmpty());
+
+        for (CodegenParameter param : op.allParams) {
+            param.vendorExtensions.put("lower_http_method", httpMethod.toLowerCase(Locale.ROOT));
+        }
+
+        return op;
+    }
+
 }

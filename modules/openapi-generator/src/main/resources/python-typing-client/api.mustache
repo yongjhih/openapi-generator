@@ -54,17 +54,18 @@ class Rests():
 
 
 class {{classname}}(Rests):
-    def __init__(self, base_url: str = {{basePath}}):
-        super().__init__(base_url)
-
-{{#operations}}{{#operation}}
     {{#description}}
     """
     {{description}}
     """
     {{/description}}
 
-    async def {{operationId}}(self{{#allParams}}, {{paramName}}{{#dataType}}: {{^required}}Optional[{{/required}}{{dataType}}{{/dataType}}{{^required}}]{{/required}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}}{{/allParams}}) -> {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}:
+    def __init__(self, base_url: str = {{basePath}}):
+        super().__init__(base_url)
+
+{{#operations}}{{#operation}}
+{{#vendorExtensions}}
+    async def {{operationId}}(self{{#pathParams}}, {{paramName}}{{#dataType}}: {{^required}}Optional[{{/required}}{{dataType}}{{/dataType}}{{^required}}]{{/required}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}}{{/pathParams}}) -> {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}:
         """
         {{#summary}}
         {{summary}}
@@ -73,10 +74,12 @@ class {{classname}}(Rests):
         method: {{httpMethod}}
         path: {{path}}
 
-{{#allParams}}
+{{#pathParams}}
         :param {{dataType}} {{paramName}}:{{#description}} {{{description}}}{{/description}}{{#required}} (required){{/required}}{{#optional}}(optional){{/optional}}
-{{/allParams}}
+{{/pathParams}}
 
         :return: {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}
         """
+        return await self.{{lower_http_method}}(f"{{path}}"{{#hasPathParams}}, { {{/hasPathParams}}{{#pathParams}} "{{paramName}}": {{paramName}}, {{/pathParams}}{{#hasPathParams}} } {{/hasPathParams}})
+{{/vendorExtensions}}
 {{/operation}}{{/operations}}

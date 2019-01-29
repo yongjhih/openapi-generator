@@ -18,6 +18,42 @@ from dataclasses import dataclass
 from requests.exceptions import HTTPError
 
 
+class Rests():
+    def __init__(self, base_url: str):
+        self.base_url = base_url
+        self.session = aiohttp.ClientSession()
+
+    def url(url: str) -> str:
+        return url if url.startswith('http://') or url.startswith('https://') else f'{self.base_url} {url}'
+
+    async def get(self, url: str):
+        async with self.session.get(url(url)) as response:
+            return await response
+
+    async def post(self, url: str, data: Optional[Dict]):
+        async with self.session.post(url(url)) as response:
+            return await response
+
+    async def put(self, url: str, data: Optional[Dict]):
+        async with self.session.put(url(url)) as response:
+            return await response
+
+    async def delete(self, url: str):
+        async with self.session.delete(url(url)) as response:
+            return await response
+
+    async def head(self, url: str):
+        async with self.session.head(url(url)) as response:
+            return await response
+
+    async def options(self, url: str):
+        async with self.session.head(url(url)) as response:
+            return await response
+
+    async def patch(self, url: str, data: Optional[Dict]):
+        async with self.session.head(url(url)) as response:
+            return await response
+
 class PetApi(Rests):
 
 

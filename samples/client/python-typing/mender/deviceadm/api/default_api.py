@@ -63,16 +63,21 @@ class DefaultApi(Rests):
         super().__init__(base_url, session)
 
 
-    async def devices_get(self) -> List[Device]:
+    async def devices_get(self, status: Optional[str] = None, page: Optional[int] = 1, per_page: Optional[int] = 10, device_id: Optional[str] = None) -> List[Device]:
         """
         List known device data sets
 
         GET /devices
 
 
+        :param str status: Admission status filter. If not specified, all device data sets are listed. 
+        :param int page: Starting page.
+        :param int per_page: Number of results per page.
+        :param str device_id: List auth sets owned by given device
+
         :return: List[Device]
         """
-        return await self.get(f"/devices")
+        return await self.get(f"/devices", {  "status": status,  "page": page,  "per_page": per_page,  "device_id": device_id,  } )
 
     async def devices_id_delete(self, id: str) -> None:
         """
@@ -82,9 +87,10 @@ class DefaultApi(Rests):
 
         :param str id: Device authentication data set identifier (required)
 
+
         :return: None
         """
-        return await self.delete(f"/devices/{id}", {  "id": id,  } )
+        return await self.delete(f"/devices/{id}")
 
     async def devices_id_get(self, id: str) -> Device:
         """
@@ -94,9 +100,10 @@ class DefaultApi(Rests):
 
         :param str id: Device authentication data set identifier. (required)
 
+
         :return: Device
         """
-        return await self.get(f"/devices/{id}", {  "id": id,  } )
+        return await self.get(f"/devices/{id}")
 
     async def devices_id_put(self, id: str) -> None:
         """
@@ -106,9 +113,10 @@ class DefaultApi(Rests):
 
         :param str id: Device authentication data set identifier. (required)
 
+
         :return: None
         """
-        return await self.put(f"/devices/{id}", {  "id": id,  } )
+        return await self.put(f"/devices/{id}")
 
     async def devices_id_status_get(self, id: str) -> Status:
         """
@@ -118,9 +126,10 @@ class DefaultApi(Rests):
 
         :param str id: Device authentication data set identifier. (required)
 
+
         :return: Status
         """
-        return await self.get(f"/devices/{id}/status", {  "id": id,  } )
+        return await self.get(f"/devices/{id}/status")
 
     async def devices_id_status_put(self, id: str) -> Status:
         """
@@ -130,15 +139,17 @@ class DefaultApi(Rests):
 
         :param str id: Device authentication data set identifier. (required)
 
+
         :return: Status
         """
-        return await self.put(f"/devices/{id}/status", {  "id": id,  } )
+        return await self.put(f"/devices/{id}/status")
 
     async def devices_post(self) -> None:
         """
         Submit a preauthorized device authentication data set
 
         POST /devices
+
 
 
         :return: None

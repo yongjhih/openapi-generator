@@ -42,6 +42,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
+import java.text.DecimalFormat;
 
 import static org.openapitools.codegen.utils.StringUtils.camelize;
 import static org.openapitools.codegen.utils.StringUtils.underscore;
@@ -640,14 +641,14 @@ public class PythonClientCodegen extends DefaultCodegen implements CodegenConfig
             // TODO
         } else if (ModelUtils.isNumberSchema(p)) {
             if (p.getDefault() != null) {
-                return p.getDefault().toString();
+                return new DecimalFormat("#.##").format(p.getDefault());
             }
             // default numbers are not yet returned by v2 spec openAPI results
             // https://github.com/swagger-api/swagger-parser/issues/971
             // include fallback to example, default defined as server only
             // example is not defined as server only
             if (p.getExample() != null) {
-                return p.getExample().toString();
+                return new DecimalFormat("#.##").format(p.getExample());
             }
         } else if (ModelUtils.isIntegerSchema(p)) {
             if (p.getDefault() != null) {

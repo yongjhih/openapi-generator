@@ -1431,6 +1431,8 @@ public class DefaultCodegen implements CodegenConfig {
         }
     }
 
+    public final static String INTEGER_FORMAT = SchemaTypeUtil.INTEGER_TYPE;
+
     /**
      * Return the OAI type (e.g. integer, long, etc) corresponding to a schema.
      * <pre>$ref</pre> is not taken into account by this method.
@@ -1463,6 +1465,8 @@ public class DefaultCodegen implements CodegenConfig {
                 return SchemaTypeUtil.FLOAT_FORMAT;
             } else if (ModelUtils.isDoubleSchema(schema)) {
                 return SchemaTypeUtil.DOUBLE_FORMAT;
+            } else if (INTEGER_FORMAT.equals(schema.getFormat())) { // type: number, format: integer = integer
+                return schema.getFormat(); // integer
             } else {
                 LOGGER.warn("Unknown `format` detected for " + schema.getName() + ": " + schema.getFormat());
             }

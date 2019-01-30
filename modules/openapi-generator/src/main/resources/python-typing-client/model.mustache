@@ -18,10 +18,10 @@ class {{{classname}}}:
     {{/parentVars}}
     {{/parent}}
     {{#vars}}
+    {{name}}: {{^required}}Optional[{{/required}}{{#isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{complexType}}{{/isPrimitiveType}}{{^required}}]{{/required}}{{^required}} = None{{/required}}
     """
     {{description}}
     """
-    {{name}}: {{^required}}Optional[{{/required}}{{#isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{complexType}}{{/isPrimitiveType}}{{^required}}]{{/required}}{{^required}} = None{{/required}}
     {{/vars}}
 
 {{/model}}

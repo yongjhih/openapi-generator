@@ -55,6 +55,7 @@ public class PythonTypingClientCodegen extends PythonClientCodegen implements Co
         languageSpecificPrimitives.add("Dict");
         typeMapping.put("array", "List");
         typeMapping.put("map", "Dict");
+        //typeMapping.put("number", "int"); // type: number, format: integer
     }
 
     @Override

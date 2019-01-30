@@ -70,6 +70,7 @@ class DefaultApi(Rests):
         POST /auth/login
 
 
+
         :return: None
         """
         return await self.post(f"/auth/login")
@@ -79,6 +80,7 @@ class DefaultApi(Rests):
         Get user settings
 
         GET /settings
+
 
 
         :return: object
@@ -92,6 +94,7 @@ class DefaultApi(Rests):
         POST /settings
 
 
+
         :return: None
         """
         return await self.post(f"/settings")
@@ -101,6 +104,7 @@ class DefaultApi(Rests):
         List users
 
         GET /users
+
 
 
         :return: List[User]
@@ -115,9 +119,10 @@ class DefaultApi(Rests):
 
         :param str id: User id. (required)
 
+
         :return: None
         """
-        return await self.delete(f"/users/{id}", {  "id": id,  } )
+        return await self.delete(f"/users/{id}")
 
     async def users_id_get(self, id: str) -> User:
         """
@@ -127,9 +132,10 @@ class DefaultApi(Rests):
 
         :param str id: User id. (required)
 
+
         :return: User
         """
-        return await self.get(f"/users/{id}", {  "id": id,  } )
+        return await self.get(f"/users/{id}")
 
     async def users_id_put(self, id: str) -> None:
         """
@@ -139,15 +145,17 @@ class DefaultApi(Rests):
 
         :param str id: User id. (required)
 
+
         :return: None
         """
-        return await self.put(f"/users/{id}", {  "id": id,  } )
+        return await self.put(f"/users/{id}")
 
     async def users_post(self) -> None:
         """
         Create user
 
         POST /users
+
 
 
         :return: None

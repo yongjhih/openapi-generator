@@ -69,7 +69,7 @@ class {{classname}}(Rests):
 
 {{#operations}}{{#operation}}
 {{#vendorExtensions}}
-    async def {{operationId}}(self{{#pathParams}}, {{paramName}}{{#dataType}}: {{^required}}Optional[{{/required}}{{dataType}}{{/dataType}}{{^required}}]{{/required}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}}{{^defaultValue}}{{^required}}] = None{{/required}}{{/defaultValue}}{{/pathParams}}) -> {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}:
+    async def {{operationId}}(self{{#pathParams}}, {{paramName}}{{#dataType}}: {{^required}}Optional[{{/required}}{{dataType}}{{/dataType}}{{^required}}]{{/required}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}}{{^defaultValue}}{{^required}} = None{{/required}}{{/defaultValue}}{{/pathParams}}{{#queryParams}}, {{paramName}}{{#dataType}}: {{^required}}Optional[{{/required}}{{dataType}}{{/dataType}}{{^required}}]{{/required}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}}{{^defaultValue}}{{^required}} = None{{/required}}{{/defaultValue}}{{/queryParams}}) -> {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}:
         """
         {{#summary}}
         {{summary}}
@@ -81,8 +81,12 @@ class {{classname}}(Rests):
         :param {{dataType}} {{paramName}}:{{#description}} {{{description}}}{{/description}}{{#required}} (required){{/required}}{{#optional}}(optional){{/optional}}
 {{/pathParams}}
 
+{{#queryParams}}
+        :param {{dataType}} {{paramName}}:{{#description}} {{{description}}}{{/description}}{{#required}} (required){{/required}}{{#optional}}(optional){{/optional}}
+{{/queryParams}}
+
         :return: {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}
         """
-        return await self.{{lower_http_method}}(f"{{path}}"{{#hasPathParams}}, { {{/hasPathParams}}{{#pathParams}} "{{paramName}}": {{paramName}}, {{/pathParams}}{{#hasPathParams}} } {{/hasPathParams}})
+        return await self.{{lower_http_method}}(f"{{path}}"{{#hasQueryParams}}, { {{/hasQueryParams}}{{#queryParams}} "{{paramName}}": {{paramName}}, {{/queryParams}}{{#hasQueryParams}} } {{/hasQueryParams}})
 {{/vendorExtensions}}
 {{/operation}}{{/operations}}

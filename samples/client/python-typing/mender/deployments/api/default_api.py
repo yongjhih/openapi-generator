@@ -70,6 +70,7 @@ class DefaultApi(Rests):
         GET /artifacts
 
 
+
         :return: List[Artifact]
         """
         return await self.get(f"/artifacts")
@@ -82,9 +83,10 @@ class DefaultApi(Rests):
 
         :param str id: Artifact identifier. (required)
 
+
         :return: None
         """
-        return await self.delete(f"/artifacts/{id}", {  "id": id,  } )
+        return await self.delete(f"/artifacts/{id}")
 
     async def artifacts_id_download_get(self, id: str) -> ArtifactLink:
         """
@@ -94,9 +96,10 @@ class DefaultApi(Rests):
 
         :param str id: Artifact identifier. (required)
 
+
         :return: ArtifactLink
         """
-        return await self.get(f"/artifacts/{id}/download", {  "id": id,  } )
+        return await self.get(f"/artifacts/{id}/download")
 
     async def artifacts_id_get(self, id: str) -> Artifact:
         """
@@ -106,9 +109,10 @@ class DefaultApi(Rests):
 
         :param str id: Artifact identifier. (required)
 
+
         :return: Artifact
         """
-        return await self.get(f"/artifacts/{id}", {  "id": id,  } )
+        return await self.get(f"/artifacts/{id}")
 
     async def artifacts_id_put(self, id: str) -> None:
         """
@@ -118,15 +122,17 @@ class DefaultApi(Rests):
 
         :param str id: Artifact identifier. (required)
 
+
         :return: None
         """
-        return await self.put(f"/artifacts/{id}", {  "id": id,  } )
+        return await self.put(f"/artifacts/{id}")
 
     async def artifacts_post(self) -> None:
         """
         Upload mender artifact
 
         POST /artifacts
+
 
 
         :return: None
@@ -142,9 +148,10 @@ class DefaultApi(Rests):
         :param str deployment_id: Deployment identifier. (required)
         :param str device_id: Device identifier. (required)
 
+
         :return: None
         """
-        return await self.get(f"/deployments/{deployment_id}/devices/{device_id}/log", {  "deployment_id": deployment_id,  "device_id": device_id,  } )
+        return await self.get(f"/deployments/{deployment_id}/devices/{device_id}/log")
 
     async def deployments_deployment_id_devices_get(self, deployment_id: str) -> List[Device]:
         """
@@ -154,9 +161,10 @@ class DefaultApi(Rests):
 
         :param str deployment_id: Deployment identifier. (required)
 
+
         :return: List[Device]
         """
-        return await self.get(f"/deployments/{deployment_id}/devices", {  "deployment_id": deployment_id,  } )
+        return await self.get(f"/deployments/{deployment_id}/devices")
 
     async def deployments_deployment_id_statistics_get(self, deployment_id: str) -> DeploymentStatistics:
         """
@@ -166,9 +174,10 @@ class DefaultApi(Rests):
 
         :param str deployment_id: Deployment identifier (required)
 
+
         :return: DeploymentStatistics
         """
-        return await self.get(f"/deployments/{deployment_id}/statistics", {  "deployment_id": deployment_id,  } )
+        return await self.get(f"/deployments/{deployment_id}/statistics")
 
     async def deployments_deployment_id_status_put(self, deployment_id: str) -> None:
         """
@@ -178,9 +187,10 @@ class DefaultApi(Rests):
 
         :param str deployment_id: Deployment identifier. (required)
 
+
         :return: None
         """
-        return await self.put(f"/deployments/{deployment_id}/status", {  "deployment_id": deployment_id,  } )
+        return await self.put(f"/deployments/{deployment_id}/status")
 
     async def deployments_devices_id_delete(self, id: str) -> None:
         """
@@ -190,20 +200,28 @@ class DefaultApi(Rests):
 
         :param str id: System wide device identifier (required)
 
+
         :return: None
         """
-        return await self.delete(f"/deployments/devices/{id}", {  "id": id,  } )
+        return await self.delete(f"/deployments/devices/{id}")
 
-    async def deployments_get(self) -> List[Deployment]:
+    async def deployments_get(self, status: Optional[str] = None, search: Optional[str] = None, page: Optional[int] = 1, per_page: Optional[int] = 20, created_before: Optional[int] = None, created_after: Optional[int] = None) -> List[Deployment]:
         """
         Find all deployments
 
         GET /deployments
 
 
+        :param str status: Deployment status filter.
+        :param str search: Deployment name or description filter.
+        :param int page: Results page number
+        :param int per_page: Number of results per page
+        :param int created_before: List only deployments created before and equal to Unix timestamp (UTC)
+        :param int created_after: List only deployments created after and equal to Unix timestamp (UTC)
+
         :return: List[Deployment]
         """
-        return await self.get(f"/deployments")
+        return await self.get(f"/deployments", {  "status": status,  "search": search,  "page": page,  "per_page": per_page,  "created_before": created_before,  "created_after": created_after,  } )
 
     async def deployments_id_get(self, id: str) -> Deployment:
         """
@@ -213,9 +231,10 @@ class DefaultApi(Rests):
 
         :param str id: Deployment identifier. (required)
 
+
         :return: Deployment
         """
-        return await self.get(f"/deployments/{id}", {  "id": id,  } )
+        return await self.get(f"/deployments/{id}")
 
     async def deployments_post(self) -> None:
         """
@@ -224,26 +243,30 @@ class DefaultApi(Rests):
         POST /deployments
 
 
+
         :return: None
         """
         return await self.post(f"/deployments")
 
-    async def deployments_releases_get(self) -> List[Release]:
+    async def deployments_releases_get(self, name: Optional[str] = None) -> List[Release]:
         """
         List releases
 
         GET /deployments/releases
 
 
+        :param str name: Release name filter.
+
         :return: List[Release]
         """
-        return await self.get(f"/deployments/releases")
+        return await self.get(f"/deployments/releases", {  "name": name,  } )
 
     async def limits_storage_get(self) -> StorageLimit:
         """
         Get storage limit and current storage usage
 
         GET /limits/storage
+
 
 
         :return: StorageLimit

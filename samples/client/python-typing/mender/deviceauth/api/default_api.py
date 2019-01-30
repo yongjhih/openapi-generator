@@ -63,27 +63,33 @@ class DefaultApi(Rests):
         super().__init__(base_url, session)
 
 
-    async def devices_count_get(self) -> Count:
+    async def devices_count_get(self, status: Optional[str] = None) -> Count:
         """
         Get a count of devices, optionally filtered by status.
 
         GET /devices/count
 
 
+        :param str status: Device status filter, one of 'pending', 'accepted', 'rejected'. Default is 'all devices'. 
+
         :return: Count
         """
-        return await self.get(f"/devices/count")
+        return await self.get(f"/devices/count", {  "status": status,  } )
 
-    async def devices_get(self) -> List[Device]:
+    async def devices_get(self, status: Optional[str] = None, page: Optional[int] = 1, per_page: Optional[int] = 20) -> List[Device]:
         """
         Get a list of tenant&#39;s devices.
 
         GET /devices
 
 
+        :param str status: Device status filter. If not specified, all devices are listed. 
+        :param int page: Results page number
+        :param int per_page: Number of results per page
+
         :return: List[Device]
         """
-        return await self.get(f"/devices")
+        return await self.get(f"/devices", {  "status": status,  "page": page,  "per_page": per_page,  } )
 
     async def devices_id_auth_aid_delete(self, id: str, aid: str) -> None:
         """
@@ -94,9 +100,10 @@ class DefaultApi(Rests):
         :param str id: Device identifier. (required)
         :param str aid: Authentication data set identifier. (required)
 
+
         :return: None
         """
-        return await self.delete(f"/devices/{id}/auth/{aid}", {  "id": id,  "aid": aid,  } )
+        return await self.delete(f"/devices/{id}/auth/{aid}")
 
     async def devices_id_auth_aid_status_get(self, id: str, aid: str) -> Status:
         """
@@ -107,9 +114,10 @@ class DefaultApi(Rests):
         :param str id: Device identifier. (required)
         :param str aid: Authentication data set identifier. (required)
 
+
         :return: Status
         """
-        return await self.get(f"/devices/{id}/auth/{aid}/status", {  "id": id,  "aid": aid,  } )
+        return await self.get(f"/devices/{id}/auth/{aid}/status")
 
     async def devices_id_auth_aid_status_put(self, id: str, aid: str) -> None:
         """
@@ -120,9 +128,10 @@ class DefaultApi(Rests):
         :param str id: Device identifier. (required)
         :param str aid: Authentication data set identifier. (required)
 
+
         :return: None
         """
-        return await self.put(f"/devices/{id}/auth/{aid}/status", {  "id": id,  "aid": aid,  } )
+        return await self.put(f"/devices/{id}/auth/{aid}/status")
 
     async def devices_id_delete(self, id: str) -> None:
         """
@@ -132,9 +141,10 @@ class DefaultApi(Rests):
 
         :param str id: Device identifier. (required)
 
+
         :return: None
         """
-        return await self.delete(f"/devices/{id}", {  "id": id,  } )
+        return await self.delete(f"/devices/{id}")
 
     async def devices_id_get(self, id: str) -> Device:
         """
@@ -144,15 +154,17 @@ class DefaultApi(Rests):
 
         :param str id: Device identifier (required)
 
+
         :return: Device
         """
-        return await self.get(f"/devices/{id}", {  "id": id,  } )
+        return await self.get(f"/devices/{id}")
 
     async def devices_post(self) -> None:
         """
         Submit a preauthorized device.
 
         POST /devices
+
 
 
         :return: None
@@ -164,6 +176,7 @@ class DefaultApi(Rests):
         Obtain limit of accepted devices.
 
         GET /limits/max_devices
+
 
 
         :return: Limit
@@ -178,7 +191,8 @@ class DefaultApi(Rests):
 
         :param str id: Unique token identifier('jti'). (required)
 
+
         :return: None
         """
-        return await self.delete(f"/tokens/{id}", {  "id": id,  } )
+        return await self.delete(f"/tokens/{id}")
 
